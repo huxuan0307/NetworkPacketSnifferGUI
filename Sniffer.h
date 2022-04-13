@@ -38,6 +38,11 @@ public:
     AdapterInfo(const string& _name, in_addr _addr, in_addr _mask, const string& _description)
         : name(_name), addr(_addr), mask(_mask), description(_description)
     {}
+    string toString() {
+        ostringstream ostr;
+        ostr << this->name << " " << this->description;
+        return ostr.str();
+    }
 };
 
 class Filter {

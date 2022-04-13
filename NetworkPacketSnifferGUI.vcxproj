@@ -96,6 +96,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConfigGUI.cpp" />
     <ClCompile Include="Sniffer.cpp" />
     <ClCompile Include="Utils.cpp" />
     <QtRcc Include="NetworkPacketSnifferGUI.qrc" />
@@ -106,6 +107,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="ConfigGUI.h" />
     <ClInclude Include="Sniffer.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="x64\Release\uic\ui_Configs.h" />

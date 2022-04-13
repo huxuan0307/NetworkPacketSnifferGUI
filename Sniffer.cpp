@@ -63,7 +63,7 @@ void Sniffer::packet_handler(u_char* param, const pcap_pkthdr* header, const u_c
     printf("%s,%.6d len:%d\n", timestr, header->ts.tv_usec, header->len);
 }
 
-inline vector<AdapterInfo> Sniffer::getAdapterInfo() {
+vector<AdapterInfo> Sniffer::getAdapterInfo() {
     vector<AdapterInfo> res;
     bpf_u_int32 net;
     bpf_u_int32 mask;
