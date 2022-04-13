@@ -1,10 +1,10 @@
-#include "NetworkPacketSnipperGUI.h"
+#include "NetworkPacketSnifferGUI.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    NetworkPacketSnipperGUI w;
+    NetworkPacketSnifferGUI w;
     w.show();
     return a.exec();
 }
