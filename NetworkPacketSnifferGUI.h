@@ -2,6 +2,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_NetworkPacketSnifferGUI.h"
+#include "Sniffer.h"
 
 class NetworkPacketSnifferGUI : public QMainWindow
 {
@@ -12,4 +13,5 @@ public:
 
 private:
     Ui::NetworkPacketSnifferGUIClass ui;
+    Sniffer sniffer;
 };

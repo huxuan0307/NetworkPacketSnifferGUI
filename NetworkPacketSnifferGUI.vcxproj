@@ -99,6 +99,7 @@
     <ClCompile Include="Sniffer.cpp" />
     <ClCompile Include="Utils.cpp" />
     <QtRcc Include="NetworkPacketSnifferGUI.qrc" />
+    <QtUic Include="Configs.ui" />
     <QtUic Include="NetworkPacketSnifferGUI.ui" />
     <QtMoc Include="NetworkPacketSnifferGUI.h" />
     <ClCompile Include="NetworkPacketSnifferGUI.cpp" />
@@ -107,6 +108,8 @@
   <ItemGroup>
     <ClInclude Include="Sniffer.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="x64\Release\uic\ui_Configs.h" />
+    <ClInclude Include="x64\Release\uic\ui_NetworkPacketSnifferGUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
