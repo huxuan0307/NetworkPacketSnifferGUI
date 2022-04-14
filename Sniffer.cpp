@@ -28,6 +28,8 @@ int Sniffer::init() {
 }
 
 int Sniffer::activate() {
+    if (dev == nullptr)
+        return -1;
     /* Open the adapter */
     ad_handler = pcap_open_live(
         dev->name,  // name of the device
@@ -38,9 +40,10 @@ int Sniffer::activate() {
         errbuf      // error buffer
     );
     if (ad_handler == nullptr) {
-        LOG(logbuf, "Unable to open the adapter. %s is not supported by WinPcap", dev->name);
+        qDebug("Unable to open the adapter. %s is not supported by WinPcap", dev->name);
         return -1;
     }
+    qDebug("listening on % s...", dev->description);
     return 0;
 }
 

@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>540</y>
+      <y>580</y>
       <width>1001</width>
-      <height>171</height>
+      <height>131</height>
      </rect>
     </property>
     <property name="acceptRichText">
@@ -30,14 +30,56 @@
    <widget class="QPushButton" name="configButton">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>50</y>
+      <x>30</x>
+      <y>40</y>
       <width>75</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
      <string>配置</string>
+    </property>
+   </widget>
+   <widget class="QTableView" name="captureTable">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>1001</width>
+      <height>411</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="startButton">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>40</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>开始捕获</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="stopButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>40</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>停止捕获</string>
     </property>
    </widget>
   </widget>

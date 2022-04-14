@@ -55,6 +55,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <IncludePath>$(PCAP_DIR)/include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(PCAP_DIR)/Lib/x64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <IncludePath>$(PCAP_DIR)/include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
@@ -64,6 +66,15 @@
     <ClCompile>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <PreprocessorDefinitions>WIN32;NDEBUG;$(Qt_DEFINES_);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>wpcap.lib;ws2_32.lib;%(AdditionalDependencies);$(Qt_LIBS_)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <PreprocessorDefinitions>WIN32;$(Qt_DEFINES_);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>wpcap.lib;ws2_32.lib;%(AdditionalDependencies);$(Qt_LIBS_)</AdditionalDependencies>
@@ -97,6 +108,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConfigGUI.cpp" />
+    <ClCompile Include="LogMessage.cpp" />
     <ClCompile Include="Sniffer.cpp" />
     <ClCompile Include="Utils.cpp" />
     <QtRcc Include="NetworkPacketSnifferGUI.qrc" />
@@ -108,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ConfigGUI.h" />
+    <ClInclude Include="LogMessage.h" />
     <ClInclude Include="Sniffer.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="x64\Release\uic\ui_Configs.h" />

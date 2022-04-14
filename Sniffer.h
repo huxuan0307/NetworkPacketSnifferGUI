@@ -10,6 +10,8 @@
 #include <string>
 #include <functional>
 #include <vector>
+#include <atomic>
+#include <thread>
 #include <qstring.h>
 
 #ifndef WIN32
@@ -71,18 +73,20 @@ private:
     struct bpf_program fp;
     vector<pcap_if_t> dev_list;
     int ret_val;
+    std::atomic<bool> running;
     static function<void(const QString&)> logger;
+    std::shared_ptr<std::thread> cap;
 public:
     Sniffer()
         : ad_handler(nullptr), dev(nullptr),
-        ip(0), netmask(0), filter_expr(), fp(), ret_val()
+        ip(0), netmask(0), filter_expr(), fp(), ret_val(), running(false)
     {
         init();
     }
     ~Sniffer()
     {
-        //if (session_handle) delete session_handle;
-        //if (dev) delete dev;
+        pcap_close(this->ad_handler);
+        pcap_freealldevs(this->alldevs);
     }
 
     int init();
@@ -120,17 +124,45 @@ public:
         return ret_val;
     }
 
-    int captureLoop(int cnt) {
-        //int pcap_loop(
-        //    pcap_t * p, 
-        //    int cnt,
-        //    pcap_handler callback, 
-        //    u_char * user
-        //);
-        // -1 or 0 for cnt is equivalent to infinity
-        // user: ??
-        ret_val = pcap_loop(ad_handler, cnt, packet_handler, nullptr);
+    int captureNext(pcap_pkthdr** header, const u_char** pkt_data) {
+        qDebug("captureNext begin");
+        ret_val = pcap_next_ex(ad_handler, header, pkt_data);
+        qDebug("pcap_next_ex returned: %d", ret_val);
+        qDebug("captureNext end");
+
         return ret_val;
+    }
+
+    int startCapture(function<void(pcap_pkthdr**, const u_char**)> cb) {
+        qDebug("dev = %p", dev);
+
+        running.store(true);
+        this->cap.reset(new std::thread(
+            [this, cb]() {
+                qDebug("another thread begin");
+                pcap_pkthdr* header;
+                const u_char* pkt_data;
+                while (running) {
+                    if (captureNext(&header, &pkt_data) == 0)
+                        continue;
+                    qDebug("capture a new packet");
+                    if (cb)
+                        cb(&header, &pkt_data);
+                }
+                qDebug("another thread end");
+            }
+        ));
+        return 0;
+    }
+
+    int stopCapture() {
+        qDebug("stopCapture begin");
+        running.store(false);
+        if (this->cap) {
+            this->cap->join();
+        }
+        qDebug("stopCapture end");
+        return 0;
     }
 
     static void packet_handler(u_char* param, const struct pcap_pkthdr* header, const u_char* pkt_data);
